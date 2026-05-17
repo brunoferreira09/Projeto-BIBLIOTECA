@@ -6,11 +6,11 @@ import com.example.ReservaBiblioteca.service.EmprestimoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-
+@CrossOrigin(origins = "*") 
 @RestController
 @RequestMapping("/api/emprestimos")
 public class EmprestimoController {
+
     private final EmprestimoService emprestimoService;
 
     public EmprestimoController(EmprestimoService emprestimoService) {

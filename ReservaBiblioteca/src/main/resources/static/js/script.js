@@ -51,7 +51,7 @@ async function registrarEmprestimo(event) {
     };
 
     try {
-        const response = await fetch(`${API_URL}/emprestimos`, {
+        const response = await fetch("http://localhost:8080/emprestimos", {
             method: "POST",
             headers: getHeaders(true),
             body: JSON.stringify(payload)
