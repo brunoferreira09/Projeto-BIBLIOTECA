@@ -23,7 +23,7 @@ public class SecurityConfig {
     // Usuários em memória com senhas criptografadas
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        UserDetails admin = User.withUsername("admin")
+        UserDetails admin = User.withUsername("adminc")
                 .password(encoder.encode("admin123"))
                 .roles("ADMIN")
                 .build();

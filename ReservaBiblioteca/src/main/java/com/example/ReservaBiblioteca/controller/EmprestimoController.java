@@ -3,18 +3,26 @@ package com.example.ReservaBiblioteca.controller;
 import com.example.ReservaBiblioteca.dto.EmprestimoDTO;
 import com.example.ReservaBiblioteca.entity.Emprestimo;
 import com.example.ReservaBiblioteca.service.EmprestimoService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< HEAD
 import jakarta.validation.Valid;
 
 // Define esta classe como um controlador REST
+=======
+
+@CrossOrigin(origins = "*") 
+>>>>>>> main
 @RestController
 // Define a rota base da API    
 @RequestMapping("/api/emprestimos")
     // Injeta o serviço de empréstimos
 public class EmprestimoController {
+<<<<<<< HEAD
        // Construtor para injeção de dependência
+=======
+
+>>>>>>> main
     private final EmprestimoService emprestimoService;
     // Construtor para injeção de dependência
     public EmprestimoController(EmprestimoService emprestimoService) {

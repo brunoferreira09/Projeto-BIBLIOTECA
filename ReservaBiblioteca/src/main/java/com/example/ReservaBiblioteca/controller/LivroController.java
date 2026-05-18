@@ -15,7 +15,8 @@ public class LivroController {
 
     public LivroController(LivroService livroService) { this.livroService = livroService; }
 
-    @GetMapping public List<LivroDTO> listar() { return livroService.listarTodos(); }
+    @GetMapping 
+    public List<LivroDTO> listar() { return livroService.listarTodos(); }
 
     @GetMapping("/buscar")
     public List<LivroDTO> buscar(@RequestParam String titulo, @RequestParam String autor, @RequestParam String isbn) {
