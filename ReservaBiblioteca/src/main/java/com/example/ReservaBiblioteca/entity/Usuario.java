@@ -1,4 +1,5 @@
 package com.example.ReservaBiblioteca.entity;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -12,14 +13,15 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotBlank
     private String nome;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotBlank
     private String matricula;
 
     private String contato;
-     
+
     @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<Emprestimo> emprestimos = new ArrayList<>();

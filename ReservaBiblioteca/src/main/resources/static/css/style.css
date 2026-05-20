@@ -10,13 +10,18 @@ header{
     background:#000000;
     color:#ffffff;
     padding:20px;
-    position:relative;   /* permite posicionar elementos internos */
-    text-align:center;   /* centraliza o título */
+
+    display:flex;
+    flex-direction:column;   /* empilha h1 e img */
+    align-items:center;      /* centraliza horizontalmente */
+    justify-content:center;
+    text-align:center;
 }
 
-header h1{
-    margin:0;
-    font-size:28px;
+header img{
+    margin-top:10px;
+    width:120px;
+    height:auto;
 }
 
 header img{
