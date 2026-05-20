@@ -3,9 +3,8 @@ package com.example.ReservaBiblioteca.controller;
 import com.example.ReservaBiblioteca.dto.EmprestimoDTO;
 import com.example.ReservaBiblioteca.entity.Emprestimo;
 import com.example.ReservaBiblioteca.service.EmprestimoService;
-
+import java.util.List;
 import jakarta.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +37,12 @@ public class EmprestimoController {
         Emprestimo emprestimo = emprestimoService.finalizarEmprestimo(id);
 
         return ResponseEntity.ok(emprestimo);
+    }
+
+    // Endpoint para listar todos os empréstimos
+    @GetMapping
+    public ResponseEntity<List<Emprestimo>> listar() {
+        List<Emprestimo> emprestimos = emprestimoService.listarEmprestimos();
+        return ResponseEntity.ok(emprestimos);
     }
 }

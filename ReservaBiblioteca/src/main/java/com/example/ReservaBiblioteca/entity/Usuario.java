@@ -1,5 +1,5 @@
 package com.example.ReservaBiblioteca.entity;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.util.ArrayList;
@@ -19,7 +19,8 @@ public class Usuario {
     private String matricula;
 
     private String contato;
-
+     
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
