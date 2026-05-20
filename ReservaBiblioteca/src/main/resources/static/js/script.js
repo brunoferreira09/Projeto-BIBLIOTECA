@@ -1,98 +1,131 @@
-const API_URL = "http://localhost:8080/api";
-const CREDENTIALS = btoa("user:user123");
+const API_USUARIO = "/api/usuarios";
+const API_LIVRO = "/api/livros";
+const API_EMPRESTIMO = "/api/emprestimos";
 
-// Função auxiliar para gerar headers padronizados
-const getHeaders = (includeJson = false) => {
-    const headers = {
-        "Authorization": `Basic ${CREDENTIALS}`
-    };
-    if (includeJson) {
-        headers["Content-Type"] = "application/json";
-    }
-    return headers;
-};
+/* ===========================
+   USUÁRIOS
+=========================== */
 
-// Listar livros
-async function listarLivros() {
-    try {
-        const response = await fetch(`${API_URL}/livros`, {
-            headers: getHeaders()
-        });
+async function cadastrarUsuario(){
 
-        if (!response.ok) throw new Error("Erro ao buscar livros");
-
-        const livros = await response.json();
-        const lista = document.getElementById("lista-livros");
-        
-        // Limpa a lista de forma eficiente
-        lista.replaceChildren();
-
-        livros.forEach(livro => {
-            const li = document.createElement("li");
-            li.className = "item-livro"; // Opcional: para seu CSS
-            li.textContent = `${livro.titulo} — Status: ${livro.status}`;
-            lista.appendChild(li);
-        });
-    } catch (error) {
-        console.error("Falha na operação:", error);
-    }
-}
-
-// Registrar empréstimo
-async function registrarEmprestimo(event) {
-    event.preventDefault();
-
-    const usuarioId = document.getElementById("usuarioId").value;
-    const livroId = document.getElementById("livroId").value;
-
-    const payload = { 
-        usuarioId: parseInt(usuarioId), 
-        livroId: parseInt(livroId) 
+    const usuario = {
+        nome: document.getElementById("nomeUsuario").value,
+        email: document.getElementById("emailUsuario").value
     };
 
-    try {
-        const response = await fetch("http://localhost:8080/emprestimos", {
-            method: "POST",
-            headers: getHeaders(true),
-            body: JSON.stringify(payload)
-        });
+    const response = await fetch(API_USUARIO,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(usuario)
+    });
 
-        if (response.ok) {
-            alert("Empréstimo registrado com sucesso!");
-            event.target.reset(); // Limpa o formulário
-            listarEmprestimos();
-            listarLivros(); // Atualiza a lista de livros (caso o status mude)
-        } else {
-            const errorData = await response.json();
-            alert(`Erro: ${errorData.message || "Não foi possível registrar o empréstimo"}`);
-        }
-    } catch (error) {
-        alert("Erro de conexão com o servidor.");
+    if(response.ok){
+        alert("Usuário cadastrado!");
+        listarUsuarios();
     }
 }
 
-// Listar empréstimos
-async function listarEmprestimos() {
-    try {
-        const response = await fetch(`${API_URL}/emprestimos`, {
-            headers: getHeaders()
-        });
+async function listarUsuarios(){
 
-        if (!response.ok) throw new Error("Erro ao buscar empréstimos");
+    const response = await fetch(API_USUARIO);
 
-        const emprestimos = await response.json();
-        const lista = document.getElementById("lista-emprestimos");
+    const usuarios = await response.json();
 
-        lista.replaceChildren();
+    const lista = document.getElementById("listaUsuarios");
 
-        emprestimos.forEach(emp => {
-            const li = document.createElement("li");
-            const statusDevolvido = emp.devolvido ? "Sim" : "Não";
-            
-            li.textContent = `Livro: ${emp.livro.titulo} | Usuário: ${emp.usuario.nome} | Devolvido: ${statusDevolvido}`;
-            lista.appendChild(li);
-        });
-    } catch (error) {
-        console.error("Erro ao listar empréstimos:", error);
+    lista.innerHTML = "";
+
+    usuarios.forEach(usuario => {
+
+        lista.innerHTML += `
+            <li>
+                ID: ${usuario.id} |
+                Nome: ${usuario.nome} |
+                Email: ${usuario.email}
+            </li>
+        `;
+    });
+}
+
+/* ===========================
+   LIVROS
+=========================== */
+
+async function cadastrarLivro(){
+
+    const livro = {
+        titulo: document.getElementById("tituloLivro").value,
+        autor: document.getElementById("autorLivro").value,
+        isbn: document.getElementById("isbnLivro").value
+    };
+
+    const response = await fetch(API_LIVRO,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(livro)
+    });
+
+    if(response.ok){
+        alert("Livro cadastrado!");
+        listarLivros();
     }
 }
+
+async function listarLivros(){
+
+    const response = await fetch(API_LIVRO);
+
+    const livros = await response.json();
+
+    const lista = document.getElementById("listaLivros");
+
+    lista.innerHTML = "";
+
+    livros.forEach(livro => {
+
+        lista.innerHTML += `
+            <li>
+                ID: ${livro.id} |
+                ${livro.titulo} |
+                ${livro.autor}
+            </li>
+        `;
+    });
+}
+
+/* ===========================
+   EMPRÉSTIMOS
+=========================== */
+
+async function registrarEmprestimo(){
+
+    const emprestimo = {
+        usuarioId: document.getElementById("usuarioId").value,
+        livroId: document.getElementById("livroId").value
+    };
+
+    const response = await fetch(API_EMPRESTIMO,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(emprestimo)
+    });
+
+    if(response.ok){
+        alert("Empréstimo registrado!");
+    }else{
+        alert("Erro ao registrar empréstimo");
+    }
+}
+
+/* ===========================
+   INICIAR LISTAS
+=========================== */
+
+listarUsuarios();
+listarLivros();
