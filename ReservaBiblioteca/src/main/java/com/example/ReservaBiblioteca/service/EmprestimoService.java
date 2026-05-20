@@ -8,11 +8,11 @@ import com.example.ReservaBiblioteca.entity.Usuario;
 import com.example.ReservaBiblioteca.repository.EmprestimoRepository;
 import com.example.ReservaBiblioteca.repository.LivroRepository;
 import com.example.ReservaBiblioteca.repository.UsuarioRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmprestimoService {
@@ -21,67 +21,92 @@ public class EmprestimoService {
     private final LivroRepository livroRepository;
     private final UsuarioRepository usuarioRepository;
 
-    public EmprestimoService(EmprestimoRepository emprestimoRepository,
-     LivroRepository livroRepository,
-     UsuarioRepository usuarioRepository) {
+    public EmprestimoService(
+            EmprestimoRepository emprestimoRepository,
+            LivroRepository livroRepository,
+            UsuarioRepository usuarioRepository) {
+
         this.emprestimoRepository = emprestimoRepository;
         this.livroRepository = livroRepository;
         this.usuarioRepository = usuarioRepository;
     }
 
-    // Criar novo empréstimo
+    /* =========================
+       CRIAR EMPRÉSTIMO
+    ========================= */
+
     public Emprestimo criarEmprestimo(EmprestimoDTO dto) {
-        Optional<Usuario> usuarioOpt = usuarioRepository.findById(dto.getUsuarioId());
-        Optional<Livro> livroOpt = livroRepository.findById(dto.getLivroId());
 
-        if (usuarioOpt.isEmpty() || livroOpt.isEmpty()) {
-            throw new RuntimeException("Usuário ou Livro não encontrado!");
-        }
+        Usuario usuario = usuarioRepository
+                .findById(dto.getUsuarioId())
+                .orElseThrow(() ->
+                        new RuntimeException("Usuário não encontrado!"));
 
-        Livro livro = livroOpt.get();
+        Livro livro = livroRepository
+                .findById(dto.getLivroId())
+                .orElseThrow(() ->
+                        new RuntimeException("Livro não encontrado!"));
+
+        // verifica se já está emprestado
         if (livro.getStatus() == Status.EMPRESTADO) {
+
             throw new RuntimeException("Livro já está emprestado!");
         }
 
         Emprestimo emprestimo = new Emprestimo();
-        emprestimo.setUsuario(usuarioOpt.get());
+
+        emprestimo.setUsuario(usuario);
         emprestimo.setLivro(livro);
         emprestimo.setDataEmprestimo(LocalDate.now());
         emprestimo.setDevolvido(false);
 
-        // Atualiza status do livro
+        // atualiza status do livro
         livro.setStatus(Status.EMPRESTADO);
+
         livroRepository.save(livro);
 
         return emprestimoRepository.save(emprestimo);
     }
 
-    // Finalizar devolução
+    /* =========================
+       FINALIZAR DEVOLUÇÃO
+    ========================= */
+
     public Emprestimo finalizarEmprestimo(Long emprestimoId) {
-        Optional<Emprestimo> emprestimoOpt = emprestimoRepository.findById(emprestimoId);
 
-        if (emprestimoOpt.isEmpty()) {
-            throw new RuntimeException("Empréstimo não encontrado!");
-        }
+        Emprestimo emprestimo = emprestimoRepository
+                .findById(emprestimoId)
+                .orElseThrow(() ->
+                        new RuntimeException("Empréstimo não encontrado!"));
 
-        Emprestimo emprestimo = emprestimoOpt.get();
+        // verifica se já foi devolvido
         if (emprestimo.isDevolvido()) {
-            throw new RuntimeException("Este empréstimo já foi finalizado!");
+
+            throw new RuntimeException(
+                    "Este empréstimo já foi finalizado!"
+            );
         }
 
         emprestimo.setDevolvido(true);
         emprestimo.setDataDevolucao(LocalDate.now());
 
-        // Atualiza status do livro
+        // atualiza status do livro
         Livro livro = emprestimo.getLivro();
+
         livro.setStatus(Status.DISPONIVEL);
+
         livroRepository.save(livro);
 
         return emprestimoRepository.save(emprestimo);
     }
 
-    // Listar todos os empréstimos
+    /* =========================
+       LISTAR EMPRÉSTIMOS
+    ========================= */
+
     public List<Emprestimo> listarEmprestimos() {
+
         return emprestimoRepository.findAll();
     }
 }
+

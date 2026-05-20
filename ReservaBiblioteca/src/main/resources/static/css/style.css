@@ -1,20 +1,36 @@
-*{
+body{
+    background:#000000; /* fundo geral preto */
+    color:#f0f0f0;      /* texto claro */
+    font-family:Arial, sans-serif;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background:#f4f4f4;
-    color:#333;
 }
 
 header{
-    background:#8B0000;
-    color:white;
+    background:#000000;
+    color:#ffffff;
     padding:20px;
+
+    display:flex;
+    flex-direction:column;   /* empilha h1 e img */
+    align-items:center;      /* centraliza horizontalmente */
+    justify-content:center;
     text-align:center;
+}
+
+header img{
+    margin-top:10px;
+    width:120px;
+    height:auto;
+}
+
+header img{
+    position:absolute;
+    left:20px;           /* fixa no lado esquerdo */
+    top:50%;
+    transform:translateY(-50%); /* centraliza verticalmente */
+    width:120px;         /* tamanho do logo */
+    height:auto;
 }
 
 main{
@@ -24,29 +40,32 @@ main{
 }
 
 .card{
-    background:white;
+    background:#1a1a1a; /* cinza escuro */
     padding:20px;
     margin-bottom:25px;
     border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    box-shadow:0 2px 8px rgba(255,255,255,0.05); /* sombra leve clara */
+    color:#f0f0f0;
 }
 
 .card h2{
     margin-bottom:15px;
-    color:#8B0000;
+    color:#ff4444; /* destaque em vermelho */
 }
 
 input{
     width:100%;
     padding:12px;
     margin-bottom:12px;
-    border:1px solid #ccc;
+    border:1px solid #444;
     border-radius:6px;
+    background:#2a2a2a;
+    color:#ffffff;
 }
 
 button{
-    background:#8B0000;
-    color:white;
+    background:#ff4444;
+    color:#ffffff;
     border:none;
     padding:12px 18px;
     border-radius:6px;
@@ -55,17 +74,20 @@ button{
 }
 
 button:hover{
-    background:#b30000;
+    background:#ff6666;
 }
 
 ul{
     margin-top:15px;
     list-style:none;
+    padding:0;
 }
 
 li{
-    background:#eee;
+    background:#2a2a2a;
+    color:#ffffff;
     padding:10px;
     margin-bottom:8px;
     border-radius:5px;
 }
+
