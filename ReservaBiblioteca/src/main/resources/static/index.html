@@ -10,6 +10,7 @@
 
 <header>
     <h1>Sistema de Biblioteca</h1>
+    <img src="/img/Logo.png" alt="Logo">
 </header>
 
 <main>
@@ -17,16 +18,24 @@
     <!-- =========================
          USUÁRIOS
     ========================== -->
-    <section class="card">
-        <h2>Cadastro de Usuários</h2>
-        <input type="text" id="nomeUsuario" placeholder="Nome">
-        <input type="text" id="matriculaUsuario" placeholder="Matrícula">
-        <input type="text" id="contatoUsuario" placeholder="Contato">
-        <button onclick="cadastrarUsuario()">Cadastrar Usuário</button>
+<section class="card">
 
-        <h3>Usuários Cadastrados</h3>
-        <ul id="listaUsuarios"></ul>
-    </section>
+    <h2>Cadastro de Usuários</h2>
+    <input type="text" id="nomeUsuario" placeholder="Nome">
+    <input type="text" id="matriculaUsuario" placeholder="Matrícula">
+    <input type="text" id="contatoUsuario" placeholder="Contato">
+    <button onclick="cadastrarUsuario()">
+        Cadastrar Usuário
+    </button>
+    <hr>
+        
+    <h3>Usuários Cadastrados</h3>
+    <button onclick="listarUsuarios()">
+        Atualizar Lista
+    </button>
+    <ul id="listaUsuarios"></ul>
+
+</section>
 
     <!-- =========================
          LIVROS

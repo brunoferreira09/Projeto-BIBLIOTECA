@@ -5,58 +5,142 @@ const API_EMPRESTIMO = "/api/emprestimos";
 /* =========================
    USUÁRIOS
 ========================= */
-
 async function cadastrarUsuario() {
+
     const usuario = {
+
         nome: document.getElementById("nomeUsuario").value,
+
         matricula: document.getElementById("matriculaUsuario").value,
+
         contato: document.getElementById("contatoUsuario").value
     };
 
     try {
+
         const response = await fetch(API_USUARIO, {
+
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
             body: JSON.stringify(usuario)
         });
 
-        if (response.ok) {
+        console.log("STATUS:", response.status);
+
+        if(response.ok) {
+
             alert("Usuário cadastrado com sucesso!");
+
             document.getElementById("nomeUsuario").value = "";
+
             document.getElementById("matriculaUsuario").value = "";
+
             document.getElementById("contatoUsuario").value = "";
+
             listarUsuarios();
+
         } else {
-            alert("Erro ao cadastrar usuário");
+
+            const erro = await response.text();
+
+            console.log(erro);
+
+            alert("Erro ao cadastrar usuário!");
         }
-    } catch (error) {
+
+    } catch(error) {
+
         console.error(error);
-        alert("Erro na requisição");
+
+        alert("Erro na requisição!");
     }
 }
 
 async function listarUsuarios() {
+
     try {
+
         const response = await fetch(API_USUARIO);
+
         const usuarios = await response.json();
-        const lista = document.getElementById("listaUsuarios");
+
+        const lista =
+            document.getElementById("listaUsuarios");
+
         lista.innerHTML = "";
 
         usuarios.forEach(usuario => {
+
             lista.innerHTML += `
+
                 <li>
+
                     ID: ${usuario.id} |
                     Nome: ${usuario.nome} |
                     Matrícula: ${usuario.matricula} |
                     Contato: ${usuario.contato}
+
+                    <button
+                        onclick="excluirUsuario(${usuario.id})"
+                        class="btn-excluir">
+
+                        Excluir
+
+                    </button>
+
                 </li>
             `;
         });
+
     } catch (error) {
+
         console.error(error);
     }
 }
 
+async function excluirUsuario(id) {
+
+    const confirmar =
+        confirm("Deseja realmente excluir este usuário?");
+
+    if(!confirmar) {
+
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+
+            `${API_USUARIO}/${id}`,
+
+            {
+                method: "DELETE"
+            }
+        );
+
+        if(response.ok) {
+
+            alert("Usuário excluído com sucesso!");
+
+            listarUsuarios();
+
+        } else {
+
+            alert("Usuário não tem permissão para exclusão!");
+        }
+
+    } catch(error) {
+
+        console.error(error);
+
+        alert("Erro na requisição!");
+    }
+}
 /* ===========================
    LIVROS
 =========================== */
@@ -97,25 +181,85 @@ async function cadastrarLivro() {
 }
 
 async function listarLivros() {
+
     try {
+
         const response = await fetch(API_LIVRO);
+
         const livros = await response.json();
-        const lista = document.getElementById("listaLivros");
+
+        const lista =
+            document.getElementById("listaLivros");
+
         lista.innerHTML = "";
 
         livros.forEach(livro => {
+
             lista.innerHTML += `
+
                 <li>
+
                     ID: ${livro.id} |
                     Título: ${livro.titulo} |
                     Autor: ${livro.autor} |
                     ISBN: ${livro.isbn} |
                     Categoria: ${livro.categoria}
+
+                    <button
+                        onclick="excluirLivro(${livro.id})"
+                        class="btn-excluir">
+
+                        Excluir
+
+                    </button>
+
                 </li>
             `;
         });
+
     } catch (error) {
+
         console.error(error);
+    }
+}
+
+async function excluirLivro(id) {
+
+    const confirmar =
+        confirm("Deseja realmente excluir este livro?");
+
+    if(!confirmar) {
+
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+
+            `${API_LIVRO}/${id}`,
+
+            {
+                method: "DELETE"
+            }
+        );
+
+        if(response.ok) {
+
+            alert("Livro excluído com sucesso!");
+
+            listarLivros();
+
+        } else {
+
+            alert("Erro ao excluir livro!");
+        }
+
+    } catch(error) {
+
+        console.error(error);
+
+        alert("Erro na requisição!");
     }
 }
 

@@ -2,57 +2,121 @@ package com.example.ReservaBiblioteca.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
-    // Bean para criptografar senhas com BCrypt
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        // =========================================
+        // CRIPTOGRAFIA DE SENHA
+        // =========================================
 
-    // Usuários em memória com senhas criptografadas
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        UserDetails admin = User.withUsername("adminc")
-                .password(encoder.encode("admin123"))
-                .roles("ADMIN")
-                .build();
+        @Bean
+        public PasswordEncoder passwordEncoder() {
 
-        UserDetails user = User.withUsername("user")
-                .password(encoder.encode("user123"))
-                .roles("USER")
-                .build();
+                return new BCryptPasswordEncoder();
+        }
 
-        return new InMemoryUserDetailsManager(admin, user);
-    }
+        // =========================================
+        // USUÁRIOS EM MEMÓRIA
+        // =========================================
 
-    // Configuração de segurança HTTP
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable()) // desabilita CSRF para APIs REST
+        @Bean
+        public UserDetailsService userDetailsService(
+                        PasswordEncoder encoder) {
 
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/public/**").permitAll() // libera endpoints públicos
-                .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
-                .requestMatchers("/api/livros/**").hasAnyRole("ADMIN", "USER")
-                .requestMatchers("/api/emprestimos/**").hasAnyRole("ADMIN", "USER")
-                .anyRequest().authenticated()
-            )
+                UserDetails admin = User.withUsername("adminc")
+                                .password(encoder.encode("admin123"))
+                                .roles("ADMIN")
+                                .build();
 
-            .httpBasic(httpBasic -> {}); // autenticação básica
+                UserDetails user = User.withUsername("user")
+                                .password(encoder.encode("user123"))
+                                .roles("USER")
+                                .build();
 
-        return http.build();
-    }
+                return new InMemoryUserDetailsManager(
+                                admin,
+                                user);
+        }
+
+        // =========================================
+        // CONFIGURAÇÃO DE SEGURANÇA
+        // =========================================
+
+        @Bean
+        public SecurityFilterChain securityFilterChain(
+                        HttpSecurity http) throws Exception {
+
+                http
+
+                                // DESABILITA CSRF
+                                .csrf(csrf -> csrf.disable())
+
+                                // AUTORIZAÇÃO
+                                .authorizeHttpRequests(auth -> auth
+
+                                                // ARQUIVOS LIBERADOS
+                                                .requestMatchers(
+
+                                                                "/login.html",
+
+                                                                "/css/**",
+                                                                "/js/**",
+                                                                "/img/**",
+
+                                                                "/public/**"
+
+                                                ).permitAll()
+
+                                                // USUÁRIOS
+                                                .requestMatchers("/api/usuarios/**")
+                                                .hasAnyRole("ADMIN", "USER")
+
+                                                // LIVROS
+                                                .requestMatchers("/api/livros/**")
+                                                .hasAnyRole("ADMIN", "USER")
+
+                                                // EMPRÉSTIMOS
+                                                .requestMatchers("/api/emprestimos/**")
+                                                .hasAnyRole("ADMIN", "USER")
+
+                                                // QUALQUER OUTRA REQUISIÇÃO
+                                                .anyRequest()
+                                                .authenticated())
+
+                                // LOGIN HTML
+                                .formLogin(form -> form
+
+                                                .loginPage("/login.html")
+
+                                                .loginProcessingUrl("/login")
+
+                                                .defaultSuccessUrl("/", true)
+
+                                                .permitAll())
+
+                                // LOGOUT
+                                .logout(logout -> logout
+
+                                                .logoutSuccessUrl("/login.html")
+
+                                                .permitAll());
+
+                return http.build();
+        }
 }
-
