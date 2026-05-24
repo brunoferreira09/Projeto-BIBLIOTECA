@@ -316,32 +316,82 @@ async function devolverEmprestimo() {
 }
 
 async function listarEmprestimos() {
-    try {
-        const response = await fetch(API_EMPRESTIMO);
-        const emprestimos = await response.json();
-        const lista = document.getElementById("listaEmprestimos");
-        lista.innerHTML = "";
+  try {
+    const response = await fetch(API_EMPRESTIMO);
+    const emprestimos = await response.json();
+    const lista = document.getElementById("historicoEmprestimosLista"); // novo id
+    if (!lista) return;
 
-        emprestimos.forEach(e => {
-            lista.innerHTML += `
-                <li>
-                    ID: ${e.id} |
-                    Usuário: ${e.usuario?.nome} |
-                    Livro: ${e.livro?.titulo} |
-                    Devolvido: ${e.devolvido}
-                </li>
-            `;
-        });
-    } catch (error) {
-        console.error(error);
-    }
+    lista.innerHTML = "";
+    emprestimos.forEach(e => {
+      lista.innerHTML += `
+        <li>
+          ID: ${e.id} |
+          Usuário: ${e.usuario?.nome} |
+          Livro: ${e.livro?.titulo} |
+          Devolvido: ${e.devolvido}
+        </li>
+      `;
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+async function listarLivrosEmprestados() {
+  try {
+    const response = await fetch(API_LIVRO);
+    const livros = await response.json();
+    const lista = document.getElementById("listaLivrosEmprestados");
+    if (!lista) return;
+
+    lista.innerHTML = "";
+    livros
+      .filter(livro => livro.status === "EMPRESTADO") // só emprestados
+      .forEach(livro => {
+        lista.innerHTML += `
+          <li>
+            ID: ${livro.id} |
+            Título: ${livro.titulo} |
+            Autor: ${livro.autor} |
+            ISBN: ${livro.isbn} |
+            Categoria: ${livro.categoria} |
+            Status: ${livro.status}
+          </li>
+        `;
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function logout() {
+  // Se tiver autenticação, aqui você limpa o token/sessionStorage/localStorage
+  // Exemplo simples:
+  sessionStorage.clear();
+  localStorage.clear();
+
+  // Redireciona para a página inicial ou login
+  window.location.href = "/login.html";
 }
 
 /* =========================
-   INICIAR
+   INICIAR CONDICIONAL
 ========================= */
 
-listarUsuarios();
-listarLivros();
-listarEmprestimos();
+// Só chama se o elemento existir na página
+if (document.getElementById("listaUsuarios")) {
+    listarUsuarios();
+}
+if (document.getElementById("listaLivros")) {
+    listarLivros();
+}
+if (document.getElementById("emprestimosLista")) {   // ajuste aqui
+    listarEmprestimos();
+}
+if (document.getElementById("listaLivrosEmprestados")) { // novo ajuste
+    listarLivrosEmprestados();
+}
+
 console.log("JS CARREGADO");

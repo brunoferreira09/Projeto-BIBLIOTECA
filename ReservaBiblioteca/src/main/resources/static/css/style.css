@@ -186,3 +186,43 @@ li{
 
     object-fit: contain;
 }
+
+nav {
+    background: #1a1a1a;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(255,255,255,0.05);
+}
+
+nav h2 {
+    color: #ff4444;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav li {
+    display: inline;
+}
+
+nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    background: #ff4444;
+    color: #ffffff;
+}

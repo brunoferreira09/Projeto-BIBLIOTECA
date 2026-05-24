@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livros</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <h1>Sistema de Biblioteca</h1>
+    <img src="/img/Logo.png" alt="Logo">
+</header>
+
+<nav>
+    <h2>Menu</h2>
+    <ul>
+        <li><a href="/dev.html">Devolver Empréstimo</a></li>
+        <li><a href="/user.html">Cadastro de Usuários</a></li>
+         <li><a href="/index.html">Voltar</a></li>
+    </ul>
+</nav>
+
+
+     <!-- =========================
+         LIVROS
+    ========================== -->
+    <section id="livros" class="card">
+        <h2>Cadastro de Livros</h2>
+        <input type="text" id="tituloLivro" placeholder="Título">
+        <input type="text" id="autorLivro" placeholder="Autor">
+        <input type="text" id="isbnLivro" placeholder="ISBN">
+        <input type="text" id="categoriaLivro" placeholder="Categoria">
+        <input type="text" id="editoraLivro" placeholder="Editora">
+        <input type="number" id="anoLivro" placeholder="Ano">
+        <button onclick="cadastrarLivro()">Cadastrar Livro</button>
+        <h3>Livros Cadastrados</h3>
+        <button onclick="listarLivros()">Atualizar Lista</button>
+        <ul id="listaLivros"></ul>
+    </section>
+    <br>
+        <!-- Importa o JS único -->
+<script src="/js/script.js"></script>
+</body>
+
+</html>
