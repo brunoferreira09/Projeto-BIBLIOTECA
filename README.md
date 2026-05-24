@@ -3,16 +3,16 @@ Sistema de Biblioteca
 Projeto de gerenciamento de biblioteca com cadastro de usuários, livros e controle de empréstimos.
 
 Tecnologias utilizadas
-- **Java 17** + **Spring Boot**
-- **H2 Database** (ou outro banco configurado)
-- **HTML5 / CSS3 / JavaScript**
-- **Fetch API** para comunicação com o backend
+**Java 17** + **Spring Boot**
+**H2 Database** (ou outro banco configurado)
+**HTML5 / CSS3 / JavaScript**
+**Fetch API** para comunicação com o backend
 =================================================
 Funcionalidades
-- Cadastro, listagem e exclusão de **usuários**
-- Cadastro, listagem e exclusão de **livros**
-- Registro e devolução de **empréstimos**
-- Visualização de:
+Cadastro, listagem e exclusão de **usuários**
+Cadastro, listagem e exclusão de **livros**
+Registro e devolução de **empréstimos**
+Visualização de:
   - Todos os livros
   - Apenas livros emprestados
   - Histórico dos empréstimos
@@ -38,10 +38,15 @@ cd\Projeto-BIBLIOTECA
 3. Compile e rode o backend:
 ./mvnw spring-boot:run
 4.Acesse no navegador:
+
 http://localhost:8080/user.html
+
 http://localhost:8080/liv.html
+
 http://localhost:8080/index.html
+
 http://localhost:8080/dev.html
+
 ==============================================
 Endpoints principais
 Usuários
