@@ -3,10 +3,10 @@ Sistema de Biblioteca
 Projeto de gerenciamento de biblioteca com cadastro de usuários, livros e controle de empréstimos.
 
 Tecnologias utilizadas
-**Java 17** + **Spring Boot**
-**H2 Database** (ou outro banco configurado)
-**HTML5 / CSS3 / JavaScript**
-**Fetch API** para comunicação com o backend
+Java 17 + Spring Boot
+H2 Database (ou outro banco configurado)
+HTML5 / CSS3 / JavaScript
+Fetch API para comunicação com o backend
 =================================================
 Funcionalidades
 Cadastro, listagem e exclusão de **usuários**
@@ -30,21 +30,14 @@ Projeto-BIBLIOTECA/
 └── README.md
 =====================================================
 Como executar
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/Carneiro2025/Projeto-BIBLIOTECA.git
-2.Entre na pasta do projeto:
-cd\Projeto-BIBLIOTECA
-3. Compile e rode o backend:
-./mvnw spring-boot:run
+1. Clone o repositório: ```bash git clone https://github.com/Carneiro2025/Projeto-BIBLIOTECA.git
+2.Entre na pasta do projeto:cd\Projeto-BIBLIOTECA
+3. Compile e rode o backend:./mvnw spring-boot:run
 4.Acesse no navegador:
 
 http://localhost:8080/user.html
-
 http://localhost:8080/liv.html
-
 http://localhost:8080/index.html
-
 http://localhost:8080/dev.html
 
 ==============================================
