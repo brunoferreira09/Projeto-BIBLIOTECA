@@ -11,9 +11,10 @@ Tecnologias utilizadas
 - JavaScript
 - Fetch API para comunicação com o backend
 
-===========================================================================================
+============================================================================
 
 Funcionalidades
+
 Cadastro, listagem e exclusão de **usuários**
 Cadastro, listagem e exclusão de **livros**
 Registro e devolução de **empréstimos**
@@ -22,7 +23,7 @@ Visualização de:
   - Apenas livros emprestados
   - Histórico dos empréstimos
     
-============================================================================================
+=============================================================================
 
 Estrutura do projeto
 
@@ -46,7 +47,7 @@ Projeto-BIBLIOTECA/
 
 └── README.md
 
-===========================================================================================
+============================================================================
 
 Como executar
 
@@ -66,7 +67,8 @@ http://localhost:8080/index.html
 
 http://localhost:8080/dev.html
 
-========================================================================================
+=========================================================================
+
 Endpoints principais
 
 Usuários
@@ -93,7 +95,7 @@ POST /api/emprestimos → registrar empréstimo
 
 PUT /api/emprestimos/{id}/devolucao → devolver empréstimo
 
-========================================================================================
+=========================================================================
 
 Autores
 
