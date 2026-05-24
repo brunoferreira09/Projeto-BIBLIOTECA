@@ -1,5 +1,10 @@
 package com.example.ReservaBiblioteca.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -12,6 +17,10 @@ public class Livro {
 
     @NotBlank
     private String titulo;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emprestimo> emprestimos = new ArrayList<>();
 
     @NotBlank
     private String autor;
@@ -50,5 +59,6 @@ public class Livro {
 
     public Status getStatus() { return status; }
     public void setStatus(Status status) { this.status = status; }
+
 }
 

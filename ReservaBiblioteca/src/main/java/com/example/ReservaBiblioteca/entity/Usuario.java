@@ -13,17 +13,16 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotBlank
     private String nome;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @NotBlank
     private String matricula;
 
     private String contato;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
     // Getters e Setters

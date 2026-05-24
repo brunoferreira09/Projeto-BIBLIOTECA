@@ -10,69 +10,41 @@
 
 <header>
     <h1>Sistema de Biblioteca</h1>
+    <img src="/img/Logo.png" alt="Logo">
 </header>
 
+<!-- Barra de Navegação -->
+<nav>
+    <h2>Menu</h2>
+    <ul>
+        <li><a href="/user.html">Cadastro de Usuários</a></li>
+        <li><a href="/liv.html">Cadastro de Livros</a></li>
+        <li><a href="/dev.html">Devolver Empréstimo</a></li>
+        <li><button onclick="logout()">Sair</button></li>
+
+    </ul>
+</nav>
+
 <main>
-
-    <!-- =========================
-         USUÁRIOS
-    ========================== -->
-    <section class="card">
-        <h2>Cadastro de Usuários</h2>
-        <input type="text" id="nomeUsuario" placeholder="Nome">
-        <input type="text" id="matriculaUsuario" placeholder="Matrícula">
-        <input type="text" id="contatoUsuario" placeholder="Contato">
-        <button onclick="cadastrarUsuario()">Cadastrar Usuário</button>
-
-        <h3>Usuários Cadastrados</h3>
-        <ul id="listaUsuarios"></ul>
+    <section id="emprestimos" class="card">
+     <h2>Registrar Empréstimo</h2>
+     <input type="number" id="usuarioId" placeholder="ID Usuário">
+     <input type="number" id="livroId" placeholder="ID Livro">
+     <button onclick="registrarEmprestimo()">Registrar Empréstimo</button>
+    </section>
+    <br>
+    <section id="historicoEmprestimos" class="card">
+    <h3>Histórico dos Empréstimos</h3>
+    <button onclick="listarEmprestimos()">Atualizar Lista</button>
+    <ul id="historicoEmprestimosLista"></ul>
     </section>
 
-    <!-- =========================
-         LIVROS
-    ========================== -->
-    <section class="card">
-        <h2>Cadastro de Livros</h2>
-        <input type="text" id="tituloLivro" placeholder="Título">
-        <input type="text" id="autorLivro" placeholder="Autor">
-        <input type="text" id="isbnLivro" placeholder="ISBN">
-        <input type="text" id="categoriaLivro" placeholder="Categoria">
-        <input type="text" id="editoraLivro" placeholder="Editora">
-        <input type="number" id="anoLivro" placeholder="Ano">
-        <button onclick="cadastrarLivro()">Cadastrar Livro</button>
-
-        <h3>Livros Cadastrados</h3>
-        <ul id="listaLivros"></ul>
+     <br>
+     <section class="card">
+     <h4>Livros Emprestados</h4>
+     <button onclick="listarLivrosEmprestados()">Atualizar Lista</button>
+     <ul id="listaLivrosEmprestados"></ul>
     </section>
-
-    <!-- =========================
-         EMPRÉSTIMOS
-    ========================== -->
-    <section class="card">
-        <h2>Registrar Empréstimo</h2>
-        <input type="number" id="usuarioId" placeholder="ID Usuário">
-        <input type="number" id="livroId" placeholder="ID Livro">
-        <button onclick="registrarEmprestimo()">Registrar Empréstimo</button>
-    </section>
-
-    <!-- =========================
-         DEVOLVER EMPRÉSTIMO
-    ========================== -->
-    <section class="card">
-        <h2>Devolver Empréstimo</h2>
-        <input type="number" id="emprestimoId" placeholder="ID Empréstimo">
-        <button onclick="devolverEmprestimo()">Devolver Empréstimo</button>
-    </section>
-
-    <!-- =========================
-         LISTA DE EMPRÉSTIMOS
-    ========================== -->
-    <section class="card">
-        <h2>Lista de Empréstimos</h2>
-        <button onclick="listarEmprestimos()">Atualizar Lista</button>
-        <ul id="listaEmprestimos"></ul>
-    </section>
-
 </main>
 
 <script src="/js/script.js"></script>

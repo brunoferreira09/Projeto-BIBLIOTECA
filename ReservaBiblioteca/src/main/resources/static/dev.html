@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devolução de Empréstimo</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+    <h1>Sistema de Biblioteca</h1>
+    <img src="/img/Logo.png" alt="Logo">
+</header>
+
+<nav>
+    <h2>Menu</h2>
+    <ul>
+        <li><a href="/liv.html">Cadastro de Livros</a></li>
+        <li><a href="/user.html">Cadastro de Usuários</a></li>
+        <li><a href="/index.html">Voltar</a></li>
+    </ul>
+</nav>
+
+    <!-- =========================
+         DEVOLVER EMPRÉSTIMO
+    ========================== -->
+    <section id="devolucao" class="card">
+        <h2>Devolver Empréstimo</h2>
+        <input type="number" id="emprestimoId" placeholder="ID Empréstimo">
+        <button onclick="devolverEmprestimo()">Devolver Empréstimo</button>
+    </section>
+
+   <section id="historicoEmprestimos" class="card">
+    <h3>Histórico dos Empréstimos</h3>
+    <button onclick="listarEmprestimos()">Atualizar Lista</button>
+    <ul id="historicoEmprestimosLista"></ul>
+    </section>
+    <!-- Importa o JS único -->
+<script src="/js/script.js"></script>
+</body>
+
+</html>

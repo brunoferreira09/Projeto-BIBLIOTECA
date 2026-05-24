@@ -20,24 +20,10 @@ header{
 
 header img{
     margin-top:10px;
-    width:120px;
+    width:150px;
     height:auto;
 }
 
-header img{
-    position:absolute;
-    left:20px;           /* fixa no lado esquerdo */
-    top:50%;
-    transform:translateY(-50%); /* centraliza verticalmente */
-    width:120px;         /* tamanho do logo */
-    height:auto;
-}
-
-main{
-    width:90%;
-    max-width:900px;
-    margin:30px auto;
-}
 
 .card{
     background:#1a1a1a; /* cinza escuro */
@@ -91,3 +77,152 @@ li{
     border-radius:5px;
 }
 
+/* =========================
+   LOGIN
+========================= */
+
+.login-box{
+
+    width: 320px;
+
+    margin: 80px auto;
+
+    background: rgba(88, 86, 86, 0.322);
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+    text-align: center;
+}
+
+.login-box h1{
+
+    margin-bottom: 25px;
+
+    color: #9e0202;
+}
+
+.login-box input{
+
+    width: 100%;
+
+    padding: 10px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+}
+
+.login-box button{
+
+    width: 100%;
+
+    padding: 10px;
+
+    background: #9e0202;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.login-box button:hover{
+
+    background: #750101;
+}
+
+/* =========================
+   HEADER LOGIN
+========================= */
+
+.login-header{
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: 20px;
+
+    margin-bottom: 20px;
+}
+
+.login-header h1{
+
+    color: #9e0202;
+
+    font-size: 30px;
+
+    margin-bottom: 12px;
+
+    text-align: center;
+}
+
+.login-header img{
+
+    width: 90px;
+
+    height: auto;
+
+    object-fit: contain;
+}
+
+nav {
+    background: #1a1a1a;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(255,255,255,0.05);
+}
+
+nav h2 {
+    color: #ff4444;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav li {
+    display: inline;
+}
+
+nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    background: #ff4444;
+    color: #ffffff;
+}
