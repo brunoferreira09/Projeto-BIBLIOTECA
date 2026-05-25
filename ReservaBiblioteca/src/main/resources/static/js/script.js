@@ -5,16 +5,24 @@ const API_EMPRESTIMO = "/api/emprestimos";
 /* =========================
    USUÁRIOS
 ========================= */
+/* melhoria na UX e evita dados vazios */
 async function cadastrarUsuario() {
 
     const usuario = {
-
-        nome: document.getElementById("nomeUsuario").value,
-
-        matricula: document.getElementById("matriculaUsuario").value,
-
-        contato: document.getElementById("contatoUsuario").value
+        nome,
+        matricula,
+        contato
     };
+
+    const nome = document.getElementById("nomeUsuario").value.trim();
+    const matricula = document.getElementById("matriculaUsuario").value.trim();
+    const contato = document.getElementById("contatoUsuario").value.trim();
+    
+    if (!nome || !matricula || !contato) {
+        alert("Preencha todos os campos!");
+        return;
+    } 
+
 
     try {
 
@@ -173,13 +181,21 @@ async function cadastrarLivro() {
             listarLivros();
         } else {
             alert("Erro ao cadastrar livro");
-        }
+        } 
     } catch (error) {
         console.error(error);
         alert("Erro na requisição");
-    }
-}
+    } finally {
 
+        botao.disabled = false;
+        botao.innerText = "Cadastrar Livro";
+    } 
+    const botao = event.target;
+
+    botao.disabled = true;
+    botao.innerText = "Cadastrando...";
+
+} 
 async function listarLivros() {
 
     try {
@@ -366,15 +382,25 @@ async function listarLivrosEmprestados() {
   }
 }
 
-function logout() {
-  // Se tiver autenticação, aqui você limpa o token/sessionStorage/localStorage
-  // Exemplo simples:
-  sessionStorage.clear();
-  localStorage.clear();
+/* ajuste para encerrar a sessao no backend, evitar que o usuario continue autenticando e comportamento profissional */
+async function logout() {
 
-  // Redireciona para a página inicial ou login
-  window.location.href = "/login.html";
-}
+    try {
+
+        await fetch("/logout", {
+            method: "POST"
+        });
+
+    } catch(error) {
+
+        console.error(error);
+    }
+
+    sessionStorage.clear();
+    localStorage.clear();
+
+    window.location.href = "/login.html";
+}x
 
 /* =========================
    INICIAR CONDICIONAL
@@ -387,7 +413,7 @@ if (document.getElementById("listaUsuarios")) {
 if (document.getElementById("listaLivros")) {
     listarLivros();
 }
-if (document.getElementById("emprestimosLista")) {   // ajuste aqui
+if (document.getElementById("historicoEmprestimosLista")) {//ajuste chamada da funcao 
     listarEmprestimos();
 }
 if (document.getElementById("listaLivrosEmprestados")) { // novo ajuste
